@@ -21,7 +21,7 @@ import (
 // @title Auth Service API
 // @version 1.0
 // @description Simple Auth Service with Register and Login
-// @host localhost:8080
+// @host localhost:8081
 // @BasePath /
 func main() {
 
@@ -56,6 +56,6 @@ func main() {
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	log.Println("Server started at :8080")
-	r.Run(":8080")
+	log.Println("Server started at :8081")
+	r.Run(":8081")
 }
