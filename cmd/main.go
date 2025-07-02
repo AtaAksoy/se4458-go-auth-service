@@ -10,6 +10,7 @@ import (
 	"github.com/AtaAksoy/se4458-go-auth-service/internal/model"
 	"github.com/AtaAksoy/se4458-go-auth-service/internal/repository"
 	"github.com/AtaAksoy/se4458-go-auth-service/internal/service"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
@@ -42,7 +43,6 @@ func main() {
 		log.Fatal("DB bağlantı hatası:", err)
 	}
 
-	// Otomatik tablo oluşturma
 	db.AutoMigrate(&model.User{})
 
 	userRepo := repository.NewUserRepository(db)
@@ -50,6 +50,14 @@ func main() {
 	authHandler := &handler.AuthHandler{AuthService: authService}
 
 	r := gin.Default()
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	r.POST("/register", func(c *gin.Context) { authHandler.Register(c.Writer, c.Request) })
 	r.POST("/login", func(c *gin.Context) { authHandler.Login(c.Writer, c.Request) })

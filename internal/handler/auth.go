@@ -66,7 +66,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusCreated, model.AuthResponse{
 		Status: "success",
 		Token:  token,
-		User:   &model.UserPublic{ID: user.ID, Email: user.Email},
+		User:   &model.UserPublic{ID: user.ID, Name: user.Name, Email: user.Email},
 	})
 }
 
@@ -96,6 +96,6 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, model.AuthResponse{
 		Status: "success",
 		Token:  token,
-		User:   &model.UserPublic{ID: user.ID, Email: user.Email},
+		User:   &model.UserPublic{ID: user.ID, Name: user.Name, Email: user.Email},
 	})
 }

@@ -22,6 +22,7 @@ func (s *AuthService) Register(req model.RegisterRequest) error {
 		return err
 	}
 	user := model.User{
+		Name:     req.Name,
 		Email:    req.Email,
 		Password: string(hash),
 	}
